@@ -1,1 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    background-color: #f5f5f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .table {
+    margin-bottom: 0;
+  }
+  
+  .card-header {
+    font-weight: bold;
+  }
+  
+  .btn-info {
+    color: white;
+  }
+  
+  /* src/app/components/post-list/post-list.component.css */
+  .table td {
+    vertical-align: middle;
+  }
+  
+  .table td:nth-child(3) {
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  /* src/app/components/comment-list/comment-list.component.css */
+  .post-info {
+    background-color: #e9ecef;
+    padding: 10px;
+    border-radius: 5px;
+  }

@@ -1,0 +1,35 @@
+=========================================
+Aplicación Web de Posts y Comentarios
+=========================================
+
+Ruta de acceso al frontend de Angular:
+
+http://localhost:4200/posts
+
+Pasos para ejecutar la aplicación:
+
+1. Abre una terminal en la carpeta raíz del proyecto.
+2. Ejecuta el comando: npm install
+3. Luego ejecuta: npm start
+4. Abre tu navegador y accede a: http://localhost:4200/posts
+
+# IMPORTANTE INSTALAR BOOTSTRAP PARA MEJORAR EL DISEÑO
+
+1. Usamos CTRL + ñ para abrir la terminal
+2. Seleccionamos GitBash
+3. usamos "npm install bootstrap"
+4. Luego, añadimos Bootstrap a tu archivo angular.json:
+
+json"styles": [
+  "node_modules/bootstrap/dist/css/bootstrap.min.css",
+  "src/styles.css"
+]
+
+Estructura principal:
+- Listado de posts al inicio.
+- Filtro de posts por usuario.
+- Visualización de comentarios de cada post.
+
+
+Desarrolladores:
+Helmer Barrios, Juan Vega

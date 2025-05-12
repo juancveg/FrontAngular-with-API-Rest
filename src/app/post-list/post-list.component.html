@@ -1,0 +1,49 @@
+<div class="container mt-4">
+    <div class="card">
+      <div class="card-header bg-dark text-white">
+        <h2 class="mb-0">Listado de Posts</h2>
+      </div>
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <div class="input-group">
+              <span class="input-group-text">Usuarios:</span>
+              <select class="form-select" [(ngModel)]="selectedUserId">
+                <option [ngValue]="null">--Seleccione el Usuario--</option>
+                <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
+              </select>
+              <button class="btn btn-primary" (click)="filterPostsByUser()">OK</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead class="table-light">
+              <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Body</th>
+                <th>UserID</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let post of posts">
+                <td>{{ post.id }}</td>
+                <td>{{ post.title }}</td>
+                <td>{{ post.body }}</td>
+                <td>{{ post.userId }}</td>
+                <td>
+                  <button class="btn btn-sm btn-info" (click)="viewComments(post)">Coment</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card-footer">
+        <p><b>Desarrollado por: Helmer Torres, Juan Vega</b></p>
+      </div>
+    </div>
+  </div>
