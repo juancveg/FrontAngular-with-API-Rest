@@ -1,15 +1,15 @@
 <div class="container mt-4">
     <div class="card">
       <div class="card-header bg-dark text-white">
-        <h2 class="mb-0">Listado de Posts</h2>
+        <h2 class="mb-0">List of Posts</h2>
       </div>
       <div class="card-body">
         <div class="row mb-3">
           <div class="col-md-6">
             <div class="input-group">
-              <span class="input-group-text">Usuarios:</span>
+              <span class="input-group-text">Users:</span>
               <select class="form-select" [(ngModel)]="selectedUserId">
-                <option [ngValue]="null">--Seleccione el Usuario--</option>
+                <option [ngValue]="null">--Select User--</option>
                 <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
               </select>
               <button class="btn btn-primary" (click)="filterPostsByUser()">OK</button>
@@ -43,7 +43,7 @@
         </div>
       </div>
       <div class="card-footer">
-        <p><b>Desarrollado por: Helmer Torres, Juan Vega</b></p>
+        <p><b>Developed by: Juan Vega</b></p>
       </div>
     </div>
   </div>
