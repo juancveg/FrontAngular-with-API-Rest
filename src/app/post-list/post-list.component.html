@@ -1,49 +1,69 @@
 <div class="container mt-4">
-    <div class="card">
-      <div class="card-header bg-dark text-white">
-        <h2 class="mb-0">List of Posts</h2>
-      </div>
-      <div class="card-body">
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <div class="input-group">
-              <span class="input-group-text">Users:</span>
-              <select class="form-select" [(ngModel)]="selectedUserId">
-                <option [ngValue]="null">--Select User--</option>
-                <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
-              </select>
-              <button class="btn btn-primary" (click)="filterPostsByUser()">OK</button>
-            </div>
+  <div class="card">
+    <div class="card-header bg-dark text-white">
+      <h2 class="mb-0">List of Posts</h2>
+    </div>
+    <div class="card-body">
+
+      <!-- User filter -->
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <div class="input-group">
+            <span class="input-group-text">User:</span>
+            <select class="form-select" [(ngModel)]="selectedUserId">
+              <option [ngValue]="null">-- All Users --</option>
+              <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
+            </select>
+            <button class="btn btn-primary" (click)="filterPostsByUser()">Filter</button>
           </div>
         </div>
-        
-        <div class="table-responsive">
-          <table class="table table-bordered table-striped">
-            <thead class="table-light">
-              <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Body</th>
-                <th>UserID</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let post of posts">
-                <td>{{ post.id }}</td>
-                <td>{{ post.title }}</td>
-                <td>{{ post.body }}</td>
-                <td>{{ post.userId }}</td>
-                <td>
-                  <button class="btn btn-sm btn-info" (click)="viewComments(post)">Coment</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      </div>
+
+      <!-- Error alert -->
+      <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Loading spinner -->
+      <div *ngIf="isLoading" class="text-center my-4">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
+        <p class="mt-2 text-muted">Loading posts...</p>
       </div>
-      <div class="card-footer">
-        <p><b>Developed by: Juan Vega</b></p>
+
+      <!-- Posts table -->
+      <div *ngIf="!isLoading" class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+              <th>Body</th>
+              <th>User ID</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let post of posts">
+              <td>{{ post.id }}</td>
+              <td>{{ post.title }}</td>
+              <td>{{ post.body }}</td>
+              <td>{{ post.userId }}</td>
+              <td>
+                <button class="btn btn-sm btn-info" (click)="viewComments(post)">Comments</button>
+              </td>
+            </tr>
+            <tr *ngIf="posts.length === 0 && !errorMessage">
+              <td colspan="5" class="text-center text-muted">No posts found.</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+
+    </div>
+    <div class="card-footer text-muted">
+      <strong>Developed by: Juan Vega</strong>
     </div>
   </div>
+</div>
