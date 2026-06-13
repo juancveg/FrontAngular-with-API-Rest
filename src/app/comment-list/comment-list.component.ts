@@ -4,6 +4,7 @@ import { ApiService } from '../services/api.service';
 import { Comment } from '../../models/comment.model';
 import { Post } from '../../models/post.model';
 import { CommonModule } from '@angular/common';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-comment-list',
@@ -16,6 +17,8 @@ export class CommentListComponent implements OnInit {
   postId: number = 0;
   post: Post | null = null;
   comments: Comment[] = [];
+  isLoading = false;
+  errorMessage = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -26,20 +29,31 @@ export class CommentListComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.postId = +params['id'];
-      this.loadComments();
-      this.loadPostDetails();
+      this.loadData();
     });
   }
 
-  loadComments(): void {
-    this.apiService.getCommentsByPost(this.postId).subscribe((comments: Comment[]) => {
+  loadData(): void {
+    this.isLoading = true;
+    this.errorMessage = '';
+
+    this.apiService.getPostById(this.postId).pipe(
+      catchError(() => {
+        this.errorMessage = 'Failed to load post details.';
+        return of(null);
+      })
+    ).subscribe((post: Post | null) => {
+      this.post = post;
+    });
+
+    this.apiService.getCommentsByPost(this.postId).pipe(
+      catchError(() => {
+        this.errorMessage = 'Failed to load comments. Please try again later.';
+        return of([]);
+      })
+    ).subscribe((comments: Comment[]) => {
       this.comments = comments;
-    });
-  }
-
-  loadPostDetails(): void {
-    this.apiService.getPosts().subscribe((posts: Post[]) => {
-      this.post = posts.find(p => p.id === this.postId) || null;
+      this.isLoading = false;
     });
   }
 
