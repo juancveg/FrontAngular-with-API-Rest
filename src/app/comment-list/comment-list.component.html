@@ -1,37 +1,57 @@
 <div class="container mt-4">
-    <div class="card">
-      <div class="card-header bg-dark text-white">
-        <h2 class="mb-0">Post Comments</h2>
+  <div class="card">
+    <div class="card-header bg-dark text-white">
+      <h2 class="mb-0">Post Comments</h2>
+    </div>
+    <div class="card-body">
+
+      <!-- Post info banner -->
+      <div class="post-info mb-3" *ngIf="post">
+        <strong>Post #{{ post.id }}:</strong> {{ post.title }}
       </div>
-      <div class="card-body">
-        <div class="post-info mb-3" *ngIf="post">
-          <strong>Post:</strong> {{ post.id }} - {{ post.title }}
+
+      <!-- Error alert -->
+      <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Loading spinner -->
+      <div *ngIf="isLoading" class="text-center my-4">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
-        
-        <div class="table-responsive">
-          <table class="table table-bordered table-striped">
-            <thead class="table-light">
-              <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Body</th>
-                <th>Email</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let comment of comments">
-                <td>{{ comment.id }}</td>
-                <td>{{ comment.name }}</td>
-                <td>{{ comment.body }}</td>
-                <td>{{ comment.email }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <p class="mt-2 text-muted">Loading comments...</p>
       </div>
-      <div class="card-footer d-flex justify-content-between">
-        <p><b>Developed by: Juan Vega</b></p>
-        <button class="btn btn-secondary" (click)="goBack()">Back</button>
+
+      <!-- Comments table -->
+      <div *ngIf="!isLoading" class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Body</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let comment of comments">
+              <td>{{ comment.id }}</td>
+              <td>{{ comment.name }}</td>
+              <td>{{ comment.body }}</td>
+              <td>{{ comment.email }}</td>
+            </tr>
+            <tr *ngIf="comments.length === 0 && !errorMessage">
+              <td colspan="4" class="text-center text-muted">No comments found for this post.</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+
+    </div>
+    <div class="card-footer d-flex justify-content-between align-items-center">
+      <strong class="text-muted">Developed by: Juan Vega</strong>
+      <button class="btn btn-secondary" (click)="goBack()">← Back to Posts</button>
     </div>
   </div>
+</div>
